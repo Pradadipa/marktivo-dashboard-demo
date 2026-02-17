@@ -70,11 +70,7 @@ def load_module3_css():
         with open(css_path) as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     except FileNotFoundError:
-        try:
-            with open('assets/module3_cro.css') as f:
-                st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-        except FileNotFoundError:
-            st.warning("⚠️ CSS file not found: assets/module3_cro.css")
+        st.warning("⚠️ CSS file not found: assets/module3_cro.css")
 
 def format_number(num):
     """Format large numbers: 1500 → 1.5K, 1500000 → 1.5M"""

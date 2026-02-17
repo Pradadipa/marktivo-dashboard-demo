@@ -48,12 +48,7 @@ def load_module2_css():
         with open(css_path) as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     except FileNotFoundError:
-        # Fallback: try loading from relative path
-        try:
-            with open('assets/module2_organic.css') as f:
-                st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-        except FileNotFoundError:
-            st.error("CSS file for Organic Architecture module not found.")
+        st.error("CSS file for Organic Architecture module not found.")
 
 def format_number(num):
     """Format large numbers: 1500 -> 1.5K, 1500000 -> 1.5M"""

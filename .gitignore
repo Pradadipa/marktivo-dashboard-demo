@@ -11,12 +11,11 @@ env/
 .env
 .env.local
 
-# Streamlit
-.streamlit/
+# Streamlit secrets (config.toml is tracked for deployment)
+.streamlit/secrets.toml
 
 # Data
-data/processed/*
-!data/processed/.gitkeep
+data/processed/.gitkeep
 
 # IDE
 .vscode/

@@ -9,7 +9,7 @@ from pathlib import Path
 
 class DataLoader:
     def __init__(self):
-        self.data_dir = Path('data/processed')
+        self.data_dir = Path(__file__).parent.parent / 'data' / 'processed'
     
     @st.cache_data
     def load_revenue_data(_self):

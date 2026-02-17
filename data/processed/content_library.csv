@@ -1,0 +1,31 @@
+post_id,title,platform,content_type,date,views,likes,comments,shares,saves,link_clicks,virality_score,conversion_score
+POST-001,Behind the Scenes: How We Build Products,YouTube,Long Video,2026-02-08,16225,904,75,82,175,252,1.58,1.55
+POST-002,5 Tips for Better Engagement,YouTube,Short,2026-01-13,66132,5434,385,391,953,866,2.03,1.31
+POST-003,Customer Success Story: Brand X,YouTube,Short,2026-01-21,36162,1279,140,148,110,339,0.71,0.94
+POST-004,Weekly Motivation Monday,YouTube,Short,2026-01-24,121928,8353,790,701,1654,1700,1.93,1.39
+POST-005,Product Launch Teaser,LinkedIn,Document,2026-02-09,149338,8820,919,438,959,3102,0.94,2.08
+POST-006,Q&A Session with the Team,LinkedIn,Document,2026-02-01,12894,1288,69,54,104,89,1.23,0.69
+POST-007,Industry Trend Breakdown,YouTube,Short,2026-01-25,147203,10064,1851,1436,1513,3032,2.0,2.06
+POST-008,Day in the Life at Office,TikTok,Stitch,2026-01-26,76996,4406,548,479,1028,594,1.96,0.77
+POST-009,Tutorial: Getting Started Guide,YouTube,Long Video,2026-01-25,36526,4335,554,432,321,937,2.06,2.57
+POST-010,Community Spotlight Feature,Instagram,Story,2026-01-28,141301,7834,901,166,925,3141,0.77,2.22
+POST-011,New Feature Announcement,TikTok,Stitch,2026-01-20,127615,6904,818,378,1501,1501,1.47,1.18
+POST-012,Weekend Vibes & Culture,TikTok,Short Video,2026-01-12,141010,14920,932,1779,1473,1389,2.31,0.99
+POST-013,Expert Interview Series Ep.1,TikTok,Short Video,2026-01-23,35855,1760,225,71,411,1070,1.34,2.98
+POST-014,Before vs After Transformation,YouTube,Live,2026-01-18,45572,2638,332,149,534,351,1.5,0.77
+POST-015,Myth Busters: Common Mistakes,Instagram,Feed Post,2026-01-18,63732,7130,590,479,1575,1452,3.22,2.28
+POST-016,Flash Sale Announcement,YouTube,Long Video,2026-01-29,821,27,2,1,5,24,0.73,2.92
+POST-017,User Generated Content Reshare,Instagram,Feed Post,2026-02-03,81537,7128,418,182,1603,1004,2.19,1.23
+POST-018,Infographic: Key Statistics,TikTok,Stitch,2026-02-06,49100,2537,257,219,465,375,1.39,0.76
+POST-019,Team Celebration Moment,Instagram,Feed Post,2026-02-08,87068,6218,491,361,1328,1653,1.94,1.9
+POST-020,Throwback Thursday Classic,LinkedIn,Document,2026-01-28,34720,2031,209,85,438,467,1.51,1.35
+POST-021,How-to: Advanced Tips & Tricks,LinkedIn,Article,2026-02-01,8709,669,91,40,156,186,2.25,2.14
+POST-022,Live Q&A Recap Highlights,TikTok,Stitch,2026-01-27,75159,4233,541,580,1044,859,2.16,1.14
+POST-023,Partner Collaboration Post,YouTube,Live,2026-02-08,120718,9245,950,945,2076,1110,2.5,0.92
+POST-024,Seasonal Campaign Launch,YouTube,Live,2026-02-03,85263,5239,911,149,267,2316,0.49,2.72
+POST-025,Data Report: Monthly Insights,Instagram,Carousel,2026-02-10,10028,795,50,46,187,192,2.32,1.91
+POST-026,Sneak Peek: Upcoming Release,TikTok,Duet,2026-02-07,62937,2270,274,195,302,717,0.79,1.14
+POST-027,Challenge: Join the Trend,LinkedIn,Document,2026-01-27,49399,4954,460,296,906,384,2.43,0.78
+POST-028,Thank You 10K Followers!,YouTube,Long Video,2026-02-04,71342,5274,661,382,454,442,1.17,0.62
+POST-029,Case Study: ROI Results,LinkedIn,Post,2026-01-25,69429,5617,352,537,1196,932,2.5,1.34
+POST-030,Friday Fun: Memes & Laughs,Instagram,Reel,2026-01-23,109212,3832,281,245,529,2413,0.71,2.21
