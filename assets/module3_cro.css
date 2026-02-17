@@ -1,0 +1,30 @@
+/* ============================================================
+   MODULE 3: CRO TERMINAL — CSS STYLES
+   Data Steering — Financial Terminal Aesthetic
+   ============================================================ */
+
+/* ============================
+   BASE & LAYOUT
+   ============================ */
+
+.stApp {
+    background-color: #0E1117;
+}
+
+.section-header {
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #2D3348;
+    margin-bottom: 16px;
+    margin-top: 24px;
+}
+
+.custom-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #2D3348, transparent);
+    margin: 24px 0;
+}

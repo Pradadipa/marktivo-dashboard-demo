@@ -1,0 +1,108 @@
+/* Main App Styling - Dark Mode */
+.stApp {
+    background-color: #0E1117;
+}
+
+/* Sidebar Styling */
+[data-testid="stSidebar"] {
+    background-color: #1E1E1E;
+    border-right: 1px solid #00D9FF;
+}
+
+[data-testid="stSidebar"] .css-1d391kg {
+    padding-top: 2rem;
+}
+
+/* Headers */
+h1, h2, h3 {
+    color: #FAFAFA !important;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2.5rem !important;
+    border-bottom: 2px solid #00D9FF;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Metric Cards */
+/* Add border */
+[data-testid="stMetric"] {
+    border: 1px solid #00D9FF;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+/* Centered the metric values */
+[data-testid="stMetric"] {
+    text-align: center;
+    font-size: 12px !important;
+}
+
+[data-testid="stMetricValue"] {
+    font-size: 2rem !important;
+    font-weight: 700;
+    color: #ffffff !important;
+}
+
+[data-testid="stMetricDelta"] {
+    font-size: 1rem !important;
+    text-align: left;
+}
+
+/* Buttons */
+.stButton>button {
+    background-color: #00D9FF;
+    color: #0E1117;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.stButton>button:hover {
+    background-color: #00FF88;
+    transform: scale(1.05);
+}
+
+/* Info/Warning/Error Boxes */
+.stAlert {
+    border-radius: 10px;
+    border-left: 4px solid #00D9FF;
+}
+
+/* Dataframe/Table Styling */
+.dataframe {
+    background-color: #1E1E1E !important;
+    color: #FAFAFA !important;
+}
+
+/* Radio Buttons */
+.stRadio > label {
+    color: #FAFAFA !important;
+    font-weight: 500;
+}
+
+/* Custom Classes */
+.metric-card {
+    background: linear-gradient(135deg, #1E1E1E 0%, #2D2D2D 100%);
+    border: 1px solid #00D9FF;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 217, 255, 0.1);
+}
+
+.neon-text {
+    color: #00D9FF;
+    text-shadow: 0 0 10px #00D9FF;
+}
+
+.red-alert {
+    background-color: rgba(255, 0, 85, 0.1);
+    border: 2px solid #FF0055;
+    border-radius: 5px;
+    padding: 1rem;
+    color: #FF0055;
+}
