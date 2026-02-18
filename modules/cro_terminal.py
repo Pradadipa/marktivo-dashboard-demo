@@ -87,19 +87,25 @@ def format_number(num):
 # ============================================================
 # 2. COMPONENT
 # ============================================================
-def render_bot_filter_stats(traffic_df, is_filtered):
+def render_bot_filter_stats(traffic_df, is_filtered, funnel_df, speed_df):
     """
     Section 1: Data Integrity Layer — "The Bouncer"
-    Shows bot detection breakdown and True Traffic toggle effect.
+    Shows key metrics (KPI row) and bot detection breakdown with True Traffic toggle effect.
     """
     st.markdown('<div class="section-header">🛡️ DATA INTEGRITY — THE BOUNCER</div>', unsafe_allow_html=True)
 
     total_bots = traffic_df["bot_sessions"].sum()
     total_raw = traffic_df["total_sessions"].sum()
+    total_human = traffic_df["human_sessions"].sum()
     total_sub_1s = traffic_df["bot_sub_1s"].sum()
     total_known_ips = traffic_df["bot_known_ips"].sum()
     total_no_js = traffic_df["bot_no_js"].sum()
     bot_pct = total_bots / max(total_raw, 1) * 100
+
+    avg_cvr = funnel_df["true_cvr"].mean()
+    avg_bounce = funnel_df["bounce_rate"].mean()
+    avg_cart_abandon = funnel_df["cart_abandonment"].mean()
+    avg_lcp_mobile = speed_df["lcp_mobile"].mean()
 
     # Toogle status indicator
     status_color = NEON_GREEN if is_filtered else NEON_YELLOW
@@ -111,6 +117,52 @@ def render_bot_filter_stats(traffic_df, is_filtered):
         <span style="font-size: 11px; color: {status_color}; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">True Traffic Filter: {status_text}</span>
     </div>
     """, unsafe_allow_html=True)
+
+    # KPI row - Key Metrics
+    kpi_cols = st.columns(5)
+    kpi_items = [
+        {
+            "label": "True Sessions" if is_filtered else "Raw Sessions",
+            "value": f"{total_human:,.0f}" if is_filtered else f"{total_raw:,.0f}",
+            "sub": f"🤖 {total_bots:,.0f} bots filtered ({total_bots/max(total_raw,1)*100:.0f}%)" if is_filtered else f"⚠️ Includes {total_bots:,.0f} bot sessions",
+            "color": NEON_BLUE,
+        },
+        {
+            "label": "True CVR",
+            "value": f"{avg_cvr:.2f}%",
+            "sub": f"Benchmark: >2.5%",
+            "color": NEON_GREEN if avg_cvr >= 2.5 else NEON_RED,
+        },
+        {
+            "label": "Bounce Rate",
+            "value": f"{avg_bounce:.1f}%",
+            "sub": f"Benchmark: <40%",
+            "color": NEON_GREEN if avg_bounce < 40 else NEON_RED,
+        },
+        {
+            "label": "Cart Abandonment",
+            "value": f"{avg_cart_abandon:.1f}%",
+            "sub": f"Benchmark: <70%",
+            "color": NEON_GREEN if avg_cart_abandon < 70 else NEON_RED,
+        },
+        {
+            "label": "Avg LCP (Mobile)",
+            "value": f"{avg_lcp_mobile:.1f}s",
+            "sub": f"Benchmark: <2.5s",
+            "color": NEON_GREEN if avg_lcp_mobile < 2.5 else (NEON_YELLOW if avg_lcp_mobile < 4.0 else NEON_RED),
+        },
+    ]
+
+    for idx, kpi in enumerate(kpi_items):
+        with kpi_cols[idx]:
+            st.markdown(f"""
+            <div style="background: linear-gradient(135deg, #1B1F2B 0%, #222838 100%); border: 1px solid #2D3348; border-top: 3px solid {kpi['color']}; border-radius: 12px; padding: 16px; text-align: center;">
+                <div style="font-size: 13px; color: #8892A0; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;">{kpi['label']}</div>
+                <div style="font-size: 25px; font-weight: 700; color: {kpi['color']}; margin-bottom: 4px;">{kpi['value']}</div>
+                <div style="font-size: 11px; color: #5A6577;">{kpi['sub']}</div>
+            </div>""", unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
 
     # Bot breakdown stats
     bot_cols = st.columns(4)
@@ -1220,68 +1272,9 @@ def show_cro_terminal():
     # --- Data Summary for verification ---
     st.markdown('<div style="height: 1px; background: linear-gradient(to right, transparent, #2D3348, transparent); margin: 24px 0;"></div>', unsafe_allow_html=True)
 
-
-    # Quick data verification
-    total_raw = traffic_df["total_sessions"].sum()
-    total_bots = traffic_df["bot_sessions"].sum()
-    total_human = traffic_df["human_sessions"].sum()
-    total_purchases = funnel_df["purchase"].sum()
-    total_revenue = funnel_df["revenue"].sum()
-    avg_cvr = funnel_df["true_cvr"].mean()
-    avg_bounce = funnel_df["bounce_rate"].mean()
-    avg_cart_abandon = funnel_df["cart_abandonment"].mean()
-    avg_lcp_mobile = speed_df["lcp_mobile"].mean()
-    avg_lcp_desktop = speed_df["lcp_desktop"].mean()
-
-    # Show "The Bouncer" - Bot filter Stats
+    # Show "The Bouncer" - Bot filter Stats (includes KPI row)
     is_filtered = traffic_view == "True Human Traffic"
-
-    # KPI row
-    kpi_cols = st.columns(5)
-    kpi_items = [
-        {
-            "label": "True Sessions" if is_filtered else "Raw Sessions",
-            "value": f"{total_human:,.0f}" if is_filtered else f"{total_raw:,.0f}",
-            "sub": f"🤖 {total_bots:,.0f} bots filtered ({total_bots/max(total_raw,1)*100:.0f}%)" if is_filtered else f"⚠️ Includes {total_bots:,.0f} bot sessions",
-            "color": NEON_BLUE,
-        },
-        {
-            "label": "True CVR",
-            "value": f"{avg_cvr:.2f}%",
-            "sub": f"Benchmark: >2.5%",
-            "color": NEON_GREEN if avg_cvr >= 2.5 else NEON_RED,
-        },
-        {
-            "label": "Bounce Rate",
-            "value": f"{avg_bounce:.1f}%",
-            "sub": f"Benchmark: <40%",
-            "color": NEON_GREEN if avg_bounce < 40 else NEON_RED,
-        },
-        {
-            "label": "Cart Abandonment",
-            "value": f"{avg_cart_abandon:.1f}%",
-            "sub": f"Benchmark: <70%",
-            "color": NEON_GREEN if avg_cart_abandon < 70 else NEON_RED,
-        },
-        {
-            "label": "Avg LCP (Mobile)",
-            "value": f"{avg_lcp_mobile:.1f}s",
-            "sub": f"Benchmark: <2.5s",
-            "color": NEON_GREEN if avg_lcp_mobile < 2.5 else (NEON_YELLOW if avg_lcp_mobile < 4.0 else NEON_RED),
-        },
-    ]
-
-    for idx, kpi in enumerate(kpi_items):
-        with kpi_cols[idx]:
-            st.markdown(f"""
-            <div style="background: linear-gradient(135deg, #1B1F2B 0%, #222838 100%); border: 1px solid #2D3348; border-top: 3px solid {kpi['color']}; border-radius: 12px; padding: 16px; text-align: center;">
-                <div style="font-size: 13px; color: #8892A0; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;">{kpi['label']}</div>
-                <div style="font-size: 25px; font-weight: 700; color: {kpi['color']}; margin-bottom: 4px;">{kpi['value']}</div>
-                <div style="font-size: 11px; color: #5A6577;">{kpi['sub']}</div>
-            </div>""", unsafe_allow_html=True)
-
-    # Section 1: The Bouncer - Bot Filter Stats
-    render_bot_filter_stats(traffic_df, is_filtered)
+    render_bot_filter_stats(traffic_df, is_filtered, funnel_df, speed_df)
 
     st.markdown('<div style="height: 1px; background: linear-gradient(to right, transparent, #2D3348, transparent); margin: 24px 0;"></div>', unsafe_allow_html=True)
 
