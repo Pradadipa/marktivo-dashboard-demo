@@ -70,7 +70,11 @@ def load_module3_css():
         with open(css_path) as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     except FileNotFoundError:
-        st.warning("⚠️ CSS file not found: assets/module3_cro.css")
+        try:
+            with open('assets/module3_cro.css') as f:
+                st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+        except FileNotFoundError:
+            st.warning("⚠️ CSS file not found: assets/module3_cro.css")
 
 def format_number(num):
     """Format large numbers: 1500 → 1.5K, 1500000 → 1.5M"""
@@ -1129,8 +1133,8 @@ def _render_cro_insight_card(insight):
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span style="font-size: 22px;">{insight['icon']}</span>
                     <div>
-                        <div style="font-size: 13px; font-weight: 600; color: #FFFFFF;">{insight['title']}</div>
-                        <div style="font-size: 10px; color: #5A6577; margin-top: 2px;">Logic {insight['logic_id']}: {insight['logic_name']}</div>
+                        <div style="font-size: 20px; font-weight: 600; color: #FFFFFF;">{insight['title']}</div>
+                        <div style="font-size: 15px; color: #5A6577; margin-top: 2px;">Logic {insight['logic_id']}: {insight['logic_name']}</div>
                     </div>
                 </div>
                 <div style="padding: 3px 10px; border-radius: 20px; background: {sev['label_bg']}; font-size: 9px; font-weight: 700; color: {sev['label_color']}; text-transform: uppercase; letter-spacing: 1px;">{sev['label']}</div>
@@ -1140,7 +1144,7 @@ def _render_cro_insight_card(insight):
     # Card Body
     st.markdown(f"""
         <div style="background: {sev['bg']}; border-left: 1px solid {sev['border']}; border-right: 1px solid {sev['border']}; padding: 0 20px 12px 20px;">
-            <div style="font-size: 12px; color: #C0C7D0; line-height: 1.7; padding: 10px 14px; background: rgba(0,0,0,0.15); border-radius: 8px;">
+            <div style="font-size: 15px; color: #C0C7D0; line-height: 1.7; padding: 10px 14px; background: rgba(0,0,0,0.15); border-radius: 8px;">
                 <span style="font-size: 9px; color: #5A6577; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 6px;">📊 Analysis</span>
                 {insight['body']}
             </div>
@@ -1149,7 +1153,7 @@ def _render_cro_insight_card(insight):
     # Card Footer
     st.markdown(f"""
         <div style="background: {sev['bg']}; border: 1px solid {sev['border']}; border-top: none; border-radius: 0 0 12px 12px; padding: 0 20px 14px 20px;">
-            <div style="font-size: 12px; color: #C0C7D0; line-height: 1.7; padding: 10px 14px; background: rgba(0,0,0,0.1); border-radius: 8px; border-left: 3px solid {accent};">
+            <div style="font-size: 15px; color: #C0C7D0; line-height: 1.7; padding: 10px 14px; background: rgba(0,0,0,0.1); border-radius: 8px; border-left: 3px solid {accent};">
                 <span style="font-size: 9px; color: {accent}; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 6px;">💡 Recommendation</span>
                 {insight['recommendation']}
             </div>

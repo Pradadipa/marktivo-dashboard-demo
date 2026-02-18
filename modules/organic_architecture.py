@@ -48,7 +48,12 @@ def load_module2_css():
         with open(css_path) as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     except FileNotFoundError:
-        st.error("CSS file for Organic Architecture module not found.")
+        # Fallback: try loading from relative path
+        try:
+            with open('assets/module2_organic.css') as f:
+                st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+        except FileNotFoundError:
+            st.error("CSS file for Organic Architecture module not found.")
 
 def format_number(num):
     """Format large numbers: 1500 -> 1.5K, 1500000 -> 1.5M"""
@@ -90,7 +95,7 @@ def render_cross_channel_pulse(df):
             st.markdown(f"""
             <div class="ticker-card" style="border-top: 3px solid {color};">
                 <div class="ticker-platform">{PLATFORM_ICONS[platform]} {platform}</div>
-                <div class="ticker-followers">{current_followers:,}</div>
+                <div class="metric-value">{current_followers:,}</div>
                 <div class="{growth_class}">
                     {growth_arrow} {abs(total_growth):,} ({growth_pct:+.1f}%)
                 </div>
@@ -227,10 +232,12 @@ def render_content_grid(page_df):
             gradient = f"linear-gradient(135deg, rgba({r},{g},{b},0.3) 0%, rgba({r},{g},{b},0.08) 100%)"
 
             # Virality score color
+            # Green >=3.0, Yellow >=1.5, Red <1.5
             vs = post['virality_score']
             vs_color = NEON_GREEN if vs >= 3.0 else (NEON_YELLOW if vs >= 1.5 else NEON_RED)
 
             # Conversion score color
+            # Green >=3.0, Yellow >=1.5, Red <1.5
             cs = post['conversion_score']
             cs_color = NEON_GREEN if cs >= 3.0 else (NEON_YELLOW if cs >= 1.5 else NEON_RED)
 
@@ -247,29 +254,29 @@ def render_content_grid(page_df):
                         <div class="card-title">{post['title']}</div>
                         <div class="card-metrics">
                             <div class="card-metric-item">
-                                <div class="card-metric-value">{format_number(post['views'])}</div>
+                                <div class="metric-value">{format_number(post['views'])}</div>
                                 <div class="card-metric-label">Views</div>
                             </div>
                             <div class="card-metric-item">
-                                <div class="card-metric-value">{format_number(post['likes'])}</div>
+                                <div class="metric-value">{format_number(post['likes'])}</div>
                                 <div class="card-metric-label">Likes</div>
                             </div>
                             <div class="card-metric-item">
-                                <div class="card-metric-value">{format_number(post['shares'])}</div>
+                                <div class="metric-value">{format_number(post['shares'])}</div>
                                 <div class="card-metric-label">Shares</div>
                             </div>
                         </div>
                         <div class="card-metrics">
                             <div class="card-metric-item">
-                                <div class="card-metric-value">{format_number(post['comments'])}</div>
+                                <div class="metric-value">{format_number(post['comments'])}</div>
                                 <div class="card-metric-label">Comments</div>
                             </div>
                             <div class="card-metric-item">
-                                <div class="card-metric-value">{format_number(post['saves'])}</div>
+                                <div class="metric-value">{format_number(post['saves'])}</div>
                                 <div class="card-metric-label">Saves</div>
                             </div>
                             <div class="card-metric-item">
-                                <div class="card-metric-value">{format_number(post['link_clicks'])}</div>
+                                <div class="metric-value">{format_number(post['link_clicks'])}</div>
                                 <div class="card-metric-label">Clicks</div>
                             </div>
                         </div>
@@ -329,10 +336,12 @@ def render_content_table(page_df, current_sort):
         icon = PLATFORM_ICONS.get(platform, "📄")
         
         # Virality score color
+        # Green >=3.0, Yellow >=1.5, Red <1.5
         vs = post['virality_score']
         vs_color = NEON_GREEN if vs >= 3.0 else (NEON_YELLOW if vs >= 1.5 else TEXT_PRIMARY)
 
         # Conversion score color
+        # Green >=3.0, Yellow >=1.5, Red <1.5
         cs = post['conversion_score']
         cs_color = NEON_GREEN if cs >= 3.0 else (NEON_YELLOW if cs >= 1.5 else TEXT_PRIMARY)
 
@@ -545,22 +554,22 @@ def _render_platform_metric_cards(platform_metrics, benchmarks):
                 <div class="metric-stack-card-body">
                     <div class="metric-stack-item">
                         <div class="metric-stack-label">Engagement Rate (ER)</div>
-                        <div class="metric-stack-value">{pm["er"]:.2f}%</div>
+                        <div class="metric-value">{pm["er"]:.2f}%</div>
                         <div class="metric-stack-status" style="color: {er_color};">{er_status}</div>
                     </div>
                     <div class="metric-stack-item">
                         <div class="metric-stack-label">Share of Voice (SoV)</div>
-                        <div class="metric-stack-value">{pm["sov"]:.2f}%</div>
+                        <div class="metric-value">{pm["sov"]:.2f}%</div>
                         <div class="metric-stack-status" style="color: {sov_color};">{sov_status}</div>
                     </div>
                     <div class="metric-stack-item">
                         <div class="metric-stack-label">Profile Conversion Rate (PCR)</div>
-                        <div class="metric-stack-value">{pm["pcr"]:.2f}%</div>
+                        <div class="metric-value">{pm["pcr"]:.2f}%</div>
                         <div class="metric-stack-status" style="color: {pcr_color};">{pcr_status}</div>
                     </div>
                     <div class="metric-stack-item">
                         <div class="metric-stack-label">Consistency Score</div>
-                        <div class="metric-stack-value">{pm["cs"]:.2f}%</div>
+                        <div class="metric-value">{pm["cs"]:.2f}%</div>
                         <div class="metric-stack-status" style="color: {cs_color};">{cs_status}</div>
                     </div>
                 </div>
@@ -637,7 +646,7 @@ def render_engagement_funnel(df):
                         border-radius: 8px; padding: 14px 16px; margin-bottom: 10px;">
                 <div style="font-size: 9px; color: #8892A0; text-transform: uppercase; 
                             letter-spacing: 1px;">Reach → Interaction</div>
-                <div style="font-size: 22px; font-weight: 700; color: {NEON_BLUE};">
+                <div style="font-size: 20px; font-weight: 700; color: {NEON_BLUE};">
                     {reach_to_interaction:.2f}%</div>
             </div>
             <div style="background: linear-gradient(135deg, #1B1F2B 0%, #222838 100%);
@@ -645,7 +654,7 @@ def render_engagement_funnel(df):
                         border-radius: 8px; padding: 14px 16px; margin-bottom: 10px;">
                 <div style="font-size: 9px; color: #8892A0; text-transform: uppercase; 
                             letter-spacing: 1px;">Interaction → Click</div>
-                <div style="font-size: 22px; font-weight: 700; color: {NEON_PURPLE};">
+                <div style="font-size: 20px; font-weight: 700; color: {NEON_PURPLE};">
                     {interaction_to_click:.2f}%</div>
             </div>
             <div style="background: linear-gradient(135deg, #1B1F2B 0%, #222838 100%);
@@ -653,7 +662,7 @@ def render_engagement_funnel(df):
                         border-radius: 8px; padding: 14px 16px;">
                 <div style="font-size: 9px; color: #8892A0; text-transform: uppercase; 
                             letter-spacing: 1px;">Total Reach → Click</div>
-                <div style="font-size: 22px; font-weight: 700; color: {NEON_ORANGE};">
+                <div style="font-size: 20px; font-weight: 700; color: {NEON_ORANGE};">
                     {reach_to_click:.3f}%</div>
             </div>
         </div>
@@ -694,14 +703,14 @@ def render_engagement_funnel(df):
                 </div>
                 <div style="display: flex; justify-content: space-around;">
                     <div>
-                        <div style="font-size: 16px; font-weight: 700; color: {NEON_BLUE};">
+                        <div style="font-size: 20px; font-weight: 700; color: {NEON_BLUE};">
                             {pf['reach_to_int_pct']:.1f}%</div>
                         <div style="font-size: 15px; color: #5A6577; text-transform: uppercase;">
                             R→I Rate</div>
                     </div>
                     <div style="width: 1px; background: #2D3348;"></div>
                     <div>
-                        <div style="font-size: 16px; font-weight: 700; color: {NEON_ORANGE};">
+                        <div style="font-size: 20px; font-weight: 700; color: {NEON_ORANGE};">
                             {pf['int_to_click_pct']:.1f}%</div>
                         <div style="font-size: 15px; color: #5A6577; text-transform: uppercase;">
                             I→C Rate</div>
@@ -824,16 +833,16 @@ def render_content_leaderboard(platform_filter):
             <table style="width: 100%; border-collapse: separate; border-spacing: 4px 0;">
                 <tr>
                     <td style="text-align: center; padding: 8px 4px; background: rgba(0,0,0,0.2); border-radius: 6px; width: 33%;">
-                        <div style="font-size: 13px; font-weight: 600; color: #FFFFFF;">{format_number(post['views'])}</div>
-                        <div style="font-size: 8px; color: #5A6577; text-transform: uppercase;">Views</div>
+                        <div style="font-size: 20px; font-weight: 600; color: #FFFFFF;">{format_number(post['views'])}</div>
+                        <div style="font-size: 12px; color: #5A6577; text-transform: initial;">Views</div>
                     </td>
                     <td style="text-align: center; padding: 8px 4px; background: rgba(0,0,0,0.2); border-radius: 6px; width: 33%;">
-                        <div style="font-size: 13px; font-weight: 600; color: #FFFFFF;">{format_number(post['likes'])}</div>
-                        <div style="font-size: 8px; color: #5A6577; text-transform: uppercase;">Likes</div>
+                        <div style="font-size: 20px; font-weight: 600; color: #FFFFFF;">{format_number(post['likes'])}</div>
+                        <div style="font-size: 12px; color: #5A6577; text-transform: initial;">Likes</div>
                     </td>
                     <td style="text-align: center; padding: 8px 4px; background: rgba(0,0,0,0.2); border-radius: 6px; width: 33%;">
-                        <div style="font-size: 13px; font-weight: 600; color: #FFFFFF;">{format_number(post['saves'])}</div>
-                        <div style="font-size: 8px; color: #5A6577; text-transform: uppercase;">Saves</div>
+                        <div style="font-size: 20px; font-weight: 600; color: #FFFFFF;">{format_number(post['saves'])}</div>
+                        <div style="font-size: 12px; color: #5A6577; text-transform: initial;">Saves</div>
                     </td>
                 </tr>
             </table>
